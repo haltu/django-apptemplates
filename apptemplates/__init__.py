@@ -39,11 +39,12 @@ def get_app_template_dir(app_name):
 
 
 if django.VERSION[:2] >= (1, 9):
-    def get_template_path(template_dir, template_name):
+    def get_template_path(template_dir, template_name, loader=None):
         """Return Origin object with template file path"""
-        return Origin(name=join(template_dir, template_name))
+        return Origin(name=join(template_dir, template_name),
+                      loader=loader)
 else:
-    def get_template_path(template_dir, template_name):
+    def get_template_path(template_dir, template_name, loader=None):
         """Return template file path (for Django < 1.9)"""
         return join(template_dir, template_name)
 
@@ -67,6 +68,6 @@ class Loader(FilesystemLoader):
         app_name, template_name = template_name.split(":", 1)
         template_dir = get_app_template_dir(app_name)
         if template_dir:
-            return [get_template_path(template_dir, template_name)]
+            return [get_template_path(template_dir, template_name, self)]
         else:
             return []
