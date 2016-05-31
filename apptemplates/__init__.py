@@ -42,6 +42,7 @@ if django.VERSION[:2] >= (1, 9):
     def get_template_path(template_dir, template_name, loader=None):
         """Return Origin object with template file path"""
         return Origin(name=join(template_dir, template_name),
+                      template_name=template_name,
                       loader=loader)
 else:
     def get_template_path(template_dir, template_name, loader=None):
