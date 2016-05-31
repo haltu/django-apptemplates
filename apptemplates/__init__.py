@@ -47,6 +47,7 @@ if django.VERSION[:2] >= (1, 9):
 else:
     def get_template_path(template_dir, template_name, loader=None):
         """Return template file path (for Django < 1.9)"""
+        _ = loader  # noqa
         return join(template_dir, template_name)
 
 
